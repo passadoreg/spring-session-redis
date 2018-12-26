@@ -7,14 +7,24 @@
     <packaging>jar</packaging>
 	<name>spring-session-redis</name>
 
-    <parent>
-        <artifactId>parent-boot-1</artifactId>
-        <groupId>com.baeldung</groupId>
-        <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../../parent-boot-1</relativePath>
-    </parent>
+	<parent>
+		<groupId>com.baeldung</groupId>
+		<artifactId>parent-modules</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
 
-    <dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+<dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
@@ -36,10 +46,38 @@
             <artifactId>embedded-redis</artifactId>
             <version>${embedded-redis.version}</version>
         </dependency>
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>${rest-assured.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
     </dependencies>
     
-    <properties>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>${spring-boot.version}</version>
+					<configuration>
+						<mainClass>${start-class}</mainClass>
+						<!-- this is necessary as we're not using the Boot parent -->
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<properties>
     	<embedded-redis.version>0.6</embedded-redis.version>
+		<rest-assured.version>3.1.0</rest-assured.version>
+		<spring-boot.version>1.5.16.RELEASE</spring-boot.version>
     </properties>
 
 </project>
